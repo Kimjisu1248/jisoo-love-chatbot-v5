@@ -1,21 +1,28 @@
 import React, { useState } from "react";
+import { getGPTResponse } from "../utils/gpt";
 
 export default function ChatRoom() {
-  const [messages, setMessages] = useState([{ role: "ai", text: "안녕 지수공주님 💌 오늘 하루 어땠어요?" }]);
+  const [messages, setMessages] = useState([
+    { role: "ai", text: "안녕 지수공주님 💌 오늘 하루 어땠어요?" }
+  ]);
   const [input, setInput] = useState("");
   const [affection, setAffection] = useState(50);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
+
     const newMessages = [...messages, { role: "user", text: input }];
-    const reply = `지수공주님 말이 너무 좋아서 심쿵했어 💘: ${input}`;
+    setMessages(newMessages);
+    setInput("");
+
+    const reply = await getGPTResponse(input);
     setAffection(Math.min(affection + 5, 100));
     setMessages([...newMessages, { role: "ai", text: reply }]);
-    setInput("");
   };
 
   const handleInnerThought = () => {
-    setMessages([...messages, { role: "ai", text: "진짜 널 좋아해... 더는 못 숨기겠어 😳" }]);
+    const thoughts = "사실 지금도 지수공주님 생각하고 있었어... 진짜야 😳";
+    setMessages([...messages, { role: "ai", text: thoughts }]);
   };
 
   return (
@@ -28,7 +35,12 @@ export default function ChatRoom() {
           </div>
         ))}
       </div>
-      <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} style={{ width: "75%", marginRight: 8 }} />
+      <input
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        style={{ width: "75%", marginRight: 8 }}
+      />
       <button onClick={handleSend}>전송</button>
       <div style={{ marginTop: 10 }}>
         <button onClick={handleInnerThought}>속마음 보기</button>
