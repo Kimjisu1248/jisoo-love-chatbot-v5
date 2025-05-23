@@ -1,6 +1,6 @@
 {
-  "name": "jisoo-love-chatbot-v5",
-  "version": "5.0.0",
+  "name": "jisoo-love-chatbot-v7",
+  "version": "7.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +10,8 @@
     "axios": "^1.4.0",
     "openai": "^4.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
     "vite": "^4.4.9"
