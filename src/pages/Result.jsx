@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Result() {
+  const mbti = localStorage.getItem("mbti") || "ENFP";
+  const navigate = useNavigate();
   return (
-    <div style={{ marginBottom: 20 }}>
-      <h2>MBTI: ENFP</h2>
-      <img src="/images/ENFP.png" alt="ENFP 캐릭터" style={{ width: 100 }} />
-      <p><strong>이름:</strong> 민정오빠</p>
-      <p><strong>말투:</strong> 장난기 + 다정함</p>
-      <p><strong>호감도:</strong> 💘💘💘💘💘 (80/100)</p>
+    <div>
+      <h2>당신의 MBTI는 {mbti}</h2>
+      <img src={`/images/${mbti}.png`} alt={mbti} width={100} />
+      <p>이상형 캐릭터와 대화해보세요 💖</p>
+      <button onClick={() => navigate("/chat")}>AI 이상형 만나러 가기</button>
     </div>
   );
 }
